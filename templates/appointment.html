@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Family Doctor: Get Appointment</title>
-  <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  <link rel="stylesheet" href="css/styles.css" />
-  
-</head>
-
-<style>
+{% extends 'base.html' %}
+{% block style %}
     .card {
     padding: 30px 40px;
     margin-top: 60px;
@@ -71,15 +57,18 @@
         outline-width: 0
     }
 
-</style>
-
-<body>
-
-    <!-- <div class="card notification-card notification-invitation">
+    {% endblock style %}
+{% block content %}
+    {% if messages %}
+    <div class="card notification-card notification-invitation">
         <div class="card-body">
-                <div class="card-title">Jane invited you to join </div>
+            {% for message  in messages %}
+                
+            <div class="card-title">{{message}} </div>
+            {% endfor %}
         </div>
-      </div> -->
+      </div> 
+      {% endif %}
 
     <div class="container-fluid px-1 py-5 mx-auto">
         <div class="row d-flex justify-content-center">
@@ -90,7 +79,8 @@
                 <p class="blue-text">Use the following form to contact us and request an appointment..</p>
                 <div class="card">
                     
-                    <form class="form-card">
+                    <form class="form-card" method="POST" action="{% url 'appointment' %}">
+                        {% csrf_token %}
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex"> 
                             <label class="form-control-label px-3">First name<span class="text-danger"> *</span>
@@ -115,7 +105,7 @@
 
                             <div class="form-group col-sm-6 flex-column d-flex"> 
                              <label class="form-control-label px-3">Phone number<span class="text-danger"> *</span></label> 
-                              <input type="text" id="mob" name="mob" placeholder="" onblur="validate(4)"> 
+                              <input type="text" id="mob" name="mobile" placeholder="" onblur="validate(4)"> 
                             </div>
 
                         </div>
@@ -123,7 +113,7 @@
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-12 flex-column d-flex"> 
                                 <label class="form-control-label px-3">Your request<span class="text-danger"> *</span></label> 
-                                <textarea type="text" id="ans" name="ans" placeholder="" onblur="validate(6)"></textarea> 
+                                <textarea type="text" id="ans" name="request" placeholder="" onblur="validate(6)"></textarea> 
                             </div>
                         </div>
                         <div class="row justify-content-end">
@@ -134,16 +124,9 @@
             </div>
         </div>
     </div>
+    {% endblock content %}
 
-
-  <!--  JQuery  -->
-  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-  <!--  Bootstrap tooltips  -->
-  <script type="text/javascript" src="js/popper.min.js"></script>
-  <!--  Bootstrap core JavaScript  -->
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  
-<script>
+    {% block script %}
 function validate(val) {
 v1 = document.getElementById("fname");
 v2 = document.getElementById("lname");
@@ -225,8 +208,4 @@ flag = flag1 && flag2 && flag3 && flag4 && flag5 && flag6;
 
 return flag;
 }
-</script>
-
-</body>
-
-</html>
+{% endblock script %}

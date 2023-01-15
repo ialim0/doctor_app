@@ -19,7 +19,12 @@
 
 <body>
 
-  <div class="header" style="background: rgb(177, 177, 177) url('img/header.png') no-repeat fixed center">
+  <div class="header" style="
+  background: rgb(177, 177, 177) url('../static/img/header.png') no-repeat fixed center
+  {% if "appointment" in request.path %}
+  max-height:100px!important;min-height:100px!important;
+  {% endif %}
+  ">
     
     <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
         <div class="container"><a class="navbar-brand" href="#">Family Doctor X</a>
@@ -43,9 +48,12 @@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" href="#contact">Contact Us</a>
                     </li>
+                    {% if request.user.is_authenticated %}
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link active" href="manage-appointments.html">Manage</a>
+                      <a class="nav-link active" href="{% url 'manage' %}">Manage</a>
                   </li>
+                
+                  
                   <li class="nav-item" role="presentation">
                     <a href="manage-appointments.html" style="float: left;cursor:pointer;" aria-expanded="true" title="You Have 6 New Appointments">
                       <i class="far fa-bell" style="font-size: 20px; float: left; color: black">
@@ -53,6 +61,7 @@
                   </a>
                   <span class="badge badge-danger">6</span>
                 </li>
+                {% endif %}
                   
                     <!-- <li class="dropdown"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Dropdown </a>
                         <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
