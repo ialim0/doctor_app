@@ -52,6 +52,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'doctor.context_processors.get_notification',
             ],
         },
     },
@@ -122,4 +123,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EADDRESS')
 EMAIL_HOST_PASSWORD = config('EAPASSWORD')
-
